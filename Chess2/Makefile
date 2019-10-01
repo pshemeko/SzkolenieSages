@@ -15,7 +15,7 @@ else
 endif
 
 
-OBJECTS := main.o board.o piece.o pawn.o rook.o knight.o bishop.o king.o queen.o
+OBJECTS := main.o board.o piece.o pawn.o rook.o knight.o bishop.o king.o queen.o position.o
 
 # For eclipse
 
