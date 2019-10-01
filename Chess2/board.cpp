@@ -1,4 +1,10 @@
 #include "board.hpp"
+#include "pawn.hpp"
+#include "rook.hpp"
+#include "knight.hpp"
+#include "bishop.hpp"
+#include "king.hpp"
+#include "queen.hpp"
 #include <iostream>
 
 namespace {
@@ -34,21 +40,34 @@ inline void showRow(const Board::container_t::value_type& rowFields, std::size_t
 
 } // anonymous namespace
 
-//std::array<std::array<std::optional<Piece>, Width>, Height> fields;
 Board::Board()
-   : fields{}
-{
-
-
-
-
-	 for(auto col = 0U; col < Width; ++col) {
-	        fields[1][col].emplace(new Pawn(PieceColor::White));
-	        fields[6][col].emplace(new Pawn(PieceColor::Black));
-	    }
-
-
-    //fields{
+    : fields{} {
+    //
+    // FIXME: A CO Z DESTRUKTOREM MISIU!!!! PRZECIEŻ MASZ NEW!!!
+    //
+    // Pawns
+    for(auto col = 0U; col < Width; ++col) {
+        fields[1][col].emplace(new Pawn(PieceColor::White));
+        fields[6][col].emplace(new Pawn(PieceColor::Black));
+    }
+    auto index = 0U;
+    std::initializer_list<Piece *> rowWhite = {
+        new Rook(PieceColor::White), new Knight(PieceColor::White),
+        new Bishop(PieceColor::White), new Queen(PieceColor::White),
+        new King(PieceColor::White), new Bishop(PieceColor::White),
+        new Knight(PieceColor::White), new Rook(PieceColor::White)};
+    for(auto& piece: rowWhite) {
+        fields[0][index++].emplace(piece);
+    }
+    index = 0U;
+    std::initializer_list<Piece *> rowBlack = {
+        new Rook(PieceColor::Black), new Knight(PieceColor::Black),
+        new Bishop(PieceColor::Black), new Queen(PieceColor::Black),
+        new King(PieceColor::Black), new Bishop(PieceColor::Black),
+        new Knight(PieceColor::Black), new Rook(PieceColor::Black)};
+    for(auto& piece: rowBlack) {
+        fields[7][index++].emplace(piece);
+    }
 }
 
 void Board::show() const {
@@ -56,7 +75,7 @@ void Board::show() const {
     auto row = Height;
     while(row--) {
         rowSeparator();
-        showRow(row);
+        showRow(fields[row], row);
     }
     rowSeparator();
     columnNames();
