@@ -34,7 +34,7 @@ public:
 private:
     const std::string name;
 };
-
+/*
 int main() {
     Airplane a1{"F35"};
     Airplane a2{"F16"};
@@ -50,3 +50,4 @@ int main() {
         std::cout << a->getName() << '\n';
     }
 }
+*/
