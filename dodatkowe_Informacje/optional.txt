@@ -1,0 +1,20 @@
+#include <iostream>
+#include <optional>
+
+std::optional<int> foo(int val) {
+	if(val %2) {
+		return std::make_optional<int>(42);
+	}
+// zwraca konstruktor (typu optional)
+	return {};
+}
+
+int main() {
+    auto value - foo(13);
+    if(value) {
+    	std::cout <<" jest: " << valuevalue()<<std::endl;
+    } else {
+    	std::cout << "Nie Ma!";
+    }
+}
+

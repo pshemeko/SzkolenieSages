@@ -1,0 +1,51 @@
+
+// constexpr int foo(int val) {
+
+//     if(val %2) {
+//         return val*2;
+//     }
+//     else 
+//     return val*4;
+// }
+
+template <int Val>
+struct Factorial {
+    //c++98
+    // enum {
+        //  value =10;
+        //};
+        //c++11 <
+        constexpr static int value = 10;
+    
+};
+
+ int main() {
+     //int z = foo(12);
+     //return z;
+ }
+
+////////////
+
+template <int Val>
+struct Factorial {
+    //c++98
+    // enum {
+        //  value =10;
+        //};
+        //c++11 <
+        constexpr static int value = Factorial<Val - 1> :: value * Val;
+};
+
+template<>
+struct Factorial <0> {
+    constexpr static int value = 1;
+};
+
+ int main() {
+     //int z = foo(12);
+     //return z;
+return Factorial<8>::value;
+ }
+
+//////////////
+
