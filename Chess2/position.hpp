@@ -5,14 +5,15 @@
 
 class Position {
 public:
-    static std::optional<Position> create(char column, unsigned row);
-    std::pair<unsigned, unsigned> getIndexes() const;
     Position(const Position&) = default;
-private:
-    
+    // nonmutable
     Position& operator=(const Position&) = delete;
+    static std::optional<const Position> create(char column, unsigned row);
+    std::pair<unsigned, unsigned> getIndexes() const;
+    std::pair<int, int> compare(const Position& src) const;
+private:
     Position(unsigned column, unsigned row);
     const unsigned column;
     const unsigned row;
-
 };
+

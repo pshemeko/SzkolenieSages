@@ -6,38 +6,11 @@
 #include "bishop.hpp"
 #include "king.hpp"
 #include "queen.hpp"
+#include "position.hpp"
 #include <iostream>
-
+#include "console_visitator.hpp"
+/*
 namespace {
-
-inline void rowSeparator() {
-    std::cout << "  ";
-    for(auto i = 0U; i < Board::Width; ++i) {
-        std::cout << "+-";
-    }
-    std::cout << "+\n";
-}
-
-inline void columnNames() {
-    std::cout << "  ";
-    for(auto i = 0U; i < Board::Height; ++i) {
-        std::cout << " " << static_cast<char>(i + 'a');
-    }
-    std::cout << '\n';
-}
-
-inline void showRow(const Board::container_t::value_type& rowFields, std::size_t rowNumber) {
-    std::cout << rowNumber + 1 << ' ';
-    for(auto col = 0U; col < Board::Width; ++col) {
-        std::cout << '|';
-        if(rowFields[col]) {
-            std::cout << rowFields[col]->getName();
-        } else {
-            std::cout << ' ';
-        }
-    }
-    std::cout << "| " << rowNumber + 1 << '\n';
-}
 
 void makeFigures(Board::container_t::value_type& rowFields, PieceColor color) {
     rowFields[0] = std::make_unique<Rook>(color);
@@ -66,13 +39,47 @@ Board::Board()
 
 Board::~Board() = default;
 
-void Board::show() const {
-    columnNames();
-    auto row = Height;
-    while(row--) {
-        rowSeparator();
-        showRow(fields[row], row);
+// void Board::show() const {
+//     columnNames();
+//     auto row = Height;
+//     while(row--) {
+//         rowSeparator();
+//         showRow(fields[row], row);
+//     }
+//     rowSeparator();
+//     columnNames();
+// }
+
+bool Board::move(const Position& from, const Position& to) {
+    // "Technical representation" -> fields[row][col]
+    auto [fromCol, fromRow] = from.getIndexes();
+    auto [toCol, toRow] = to.getIndexes();
+    auto& fromFields = fields[fromRow][fromCol];
+    auto& toFields = fields[toRow][toCol];
+    if(fromFields && !toFields) {
+        if(fromFields->isMovePossible(from, to)) {
+            fromFields.swap(toFields);
+        }
+        return true;
     }
-    rowSeparator();
-    columnNames();
+    return false;
 }
+
+void Board::accept(ConsoleVisitor& visitor) const
+{
+ int table[Board::Height * Board::Width];
+int nr = 0;
+ for(auto &zewn: fields)
+ {
+      for(auto &wewn: zewn)
+      {
+          table[nr] =(*wewn).getName();
+          nr++;
+      }
+ }
+
+
+    visitor.visit(table);
+}
+
+*/

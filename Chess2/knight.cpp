@@ -1,4 +1,5 @@
 #include "knight.hpp"
+#include "checker.hpp"
 
 Knight::Knight(PieceColor color_)
     : Piece{color_},
@@ -7,4 +8,8 @@ Knight::Knight(PieceColor color_)
 
 char Knight::getName() const {
     return name;
+}
+
+bool Knight::isMovePossible(const Position& from, const Position& to) const {
+    return Checker::check(this, from, to);
 }

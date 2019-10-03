@@ -1,5 +1,7 @@
 #pragma once
 
+class Position;
+
 enum class PieceColor {
     White,
     Black
@@ -11,6 +13,7 @@ public:
     virtual ~Piece() = default;
     virtual char getName() const;
     PieceColor getColor() const;
+    virtual bool isMovePossible(const Position& from, const Position& to) const;
 private:
     const PieceColor color;
 };

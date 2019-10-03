@@ -1,5 +1,5 @@
 .PHONY := clean
-CXXFLAGS := -Os -fdata-sections -ffunction-sections -fno-exceptions -fno-rtti -std=c++17 -Wall -Wextra -pedantic
+CXXFLAGS := -Os -fdata-sections -ffunction-sections -fno-exceptions -fno-rtti -std=c++17 -Wall -Wextra -pedantic -pthread
 CXX := g++
 
 UNAME_S := $(shell uname -s)
@@ -7,7 +7,7 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
     LDFLAGS := -Wl,-dead_strip
 else ifeq ($(UNAME_S),Linux)
-    LDFLAGS := -Wl,-gc-sections
+    LDFLAGS := -Wl,-gc-sections -pthread
 else ifeq ($(OS),Windows_NT)
     LDFLAGS :=
 else
@@ -15,8 +15,7 @@ else
 endif
 
 
-OBJECTS := main.o board.o piece.o pawn.o rook.o knight.o bishop.o king.o \
-           queen.o position.o checker.o console_visitator.o seaman.o
+OBJECTS := main.o seaman.o
 
 # For eclipse
 
